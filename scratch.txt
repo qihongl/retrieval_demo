@@ -1,0 +1,19 @@
+download_data = True
+
+if download_data:
+    # download data 
+    img_dl_cmd = 'curl --header "Host: s3-eu-west-1.amazonaws.com" --header "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36" --header "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" --header "Accept-Language: en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6,ja;q=0.5" "https://s3-eu-west-1.amazonaws.com/pfigshare-u-files/13474631/retrieval.tar.gz" -o "retrieval.tar.gz" -L'
+    _ = os.system(img_dl_cmd)
+
+    # create a cache dir 
+    if not os.path.exists('cache'):
+        os.makedirs('cache')
+
+    # move the file to cache    
+    if os.path.exists('retrieval.tar.gz'):    
+        _ = os.system('mv retrieval.tar.gz cache/')
+    else: 
+        assert os.path.exists('cache/retrieval.tar.gz')
+
+    # unzip the folder
+    _ = os.system('tar -xzf cache/retrieval.tar.gz -C cache/')
